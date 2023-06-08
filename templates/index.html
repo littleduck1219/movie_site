@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(0, 0, 0);
+            /* background-image: url("vincentiu-solomon-ln5drpv_ImI-unsplash.jpg"); */
+            background-size: cover;
+            background-position: center;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .ranked-section-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-title {
+            color: white;
+            font-size: 60px;
+            margin: 20px 0px 20px 20px;
+        }
+
+        .menu-btn {
+            width: 30px;
+            height: 30px;
+            background-color: black;
+            border: none;
+        }
+
+        .btn-img {
+            border: none;
+            background-color: black;
+        }
+
+        .ranked-movie-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .ranked-movie {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 20px;
+            width: 60%;
+            height: 60%;
+            border-radius: 20px;
+
+            
+        }
+
+        .ranked-movie-poster {
+            width: 80%;
+            height: 80%;
+            object-fit: cover;
+            padding-top: 30px;
+        }
+
+
+        .ranked-movie-name {
+            font-size: 40px;
+            margin: 10px;
+            font-size: 2vw;
+            text-align: center;
+
+            width:100px; 
+            white-space:nowrap; 
+            overflow:hidden; 
+            text-overflow:ellipsis;
+        }
+
+        .ranked-movie-rate {
+            color: white;
+            font-size: 30px;
+        }
+
+        /* -----------------상영작-----------------  */
+        .movie-section-header {
+            color: white;
+            font-size: 60px;
+            margin: 20px 0px 20px 20px;
+        }
+
+        .movie-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+
+        }
+
+        .movie {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+
+            flex: 1 0 12.33%;
+            max-width: 12.33%;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 20px;
+            width: 60%;
+            height: 60%;
+            border-radius: 20px;
+        }
+
+        .movie-poster {
+            width: 80%;
+            height: 80%;
+            object-fit: cover;
+            padding-top: 30px;
+        }
+
+        .movie-name {
+            color: white;
+            font-size: 25px;
+            margin: 10px;
+            font-size: 1vw;
+            text-align: center;
+        }
+
+        .movie-rate {
+            color: white;
+            font-size: 20px;
+        }
+    </style>
+    <script>
+        $(document).ready(function () {
+            $.post("http://localhost:8000/movie", function (data, status) {
+                listing();
+            });
+        });
+
+        function listing() {
+            fetch('/movie').then(res => res.json()).then(data => {
+                let rows = data['result']
+                $('.ranked-movie-container').empty()
+                $('.movie-container').empty()
+                rows.forEach((a, index) => {
+                    let title = a['title']
+                    let poster = a['poster']
+                    let rank = a['rank']
+                    let rate = a['rate']
+                    let url = a['url']
+                    let ranked_temp_html = `<div class="ranked-movie">
+                                    <img class="ranked-movie-poster" src=${poster} />
+                                    <div class="ranked-movie-name"><a href="https://movie.daum.net${url}">${title}</a></div>
+                                    <div class="ranked-movie-rate">평점 ${rate}</div>
+                                </div>`
+
+                    let temp_html = `<div class="movie">
+                                        <img class="movie-poster" src=${poster} />
+                                        <div class="movie-name"><a href="https://movie.daum.net${url}">${title}</a></div>
+                                        <div class="movie-rate">${rate}</div>
+                                    </div>`
+
+                    if (index < 5) {
+                        $('.ranked-movie-container').append(ranked_temp_html)
+                    } else {
+                        $('.movie-container').append(temp_html)
+                    }
+                })
+            })
+        }
+    </script>
+</head>
+
+<body>
+    <div class="background">
+        <header>
+            <div class="randedMovieList">
+                <div class="ranked-section-header">
+                    <div class="header-title">예매 순위</div>
+                    <div class="menu">
+                        <button class="menu-btn">
+                            <img class="btn-img" src="button.png" alt="">
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="ranked-movie-container">
+                <div class="ranked-movie">
+                    <img class="ranked-movie-poster" src="#" />
+                    <div class="ranked-movie-name"></div>
+                    <div class="ranked-movie-rate"></div>
+                </div>
+
+            </div>
+        </header>
+    </div>
+    <main>
+        <div class="movie-list">
+            <div class="movie-section-header">상영작</div>
+            <div class="movie-container">
+                <div class="movie">
+                    <img class="movie-poster" src="#" />
+                    <div class="movie-name"><a href="#"></a></div>
+                    <div class="movie-rate"></div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+
+</html>
