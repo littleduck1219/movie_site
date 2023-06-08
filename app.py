@@ -41,7 +41,6 @@ def movie_post():
                 'url': url
             }
             db.movie.insert_one(doc)
-        print(rank, title, rate, poster, url)
     
     return jsonify({'msg': 'POST 연결 완료!'})
 
