@@ -70,7 +70,7 @@ def book_get():
     return jsonify({'msg': '예약 저장 완료!'})
 
 # 영화예매 db저장
-
+#
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8000, debug=True)
