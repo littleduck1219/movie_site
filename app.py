@@ -50,5 +50,16 @@ def movie_get():
     all_movie = list(db.movie.find({},{'_id':False}))
     return jsonify({'result': all_movie})
 
+@app.route("/book", methods=["POST"])
+def book_get():
+    seat_receive = request.form['seat_give']
+    
+    doc = {
+        'seat': seat_receive
+    }
+    db.booked.insert_one(doc)
+
+    return jsonify({'msg': '예약 저장 완료!'})
+
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8000, debug=True)
