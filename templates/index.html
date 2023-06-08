@@ -15,7 +15,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="style.scss">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
+
 
     <title>Document</title>
     <style>
@@ -81,6 +84,7 @@
             margin: 10px;
             font-size: 1.5vw;
             text-align: center;
+            color: white;
 
             width: 300px;
             white-space: nowrap;
@@ -102,6 +106,15 @@
             font-size: 60px;
             margin: 20px 0px 20px 20px;
         }
+
+        /* .container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+        } */
 
         .movie-container {
             display: flex;
@@ -255,6 +268,13 @@
         }
 
         /* -----------------드롭다운 버튼-----------------  */
+
+        .menu-icon {
+            width: 30px;
+            height: 30px;
+            border: 2px solid white;
+        }
+
         .menu-icon_up {
             border-top: 3px solid white;
         }
@@ -268,24 +288,17 @@
         }
 
 
-        #check-btn {
-            display: none;
-            color: white;
-        }
-
-        .click-btn {
-            color: white;
-            margin-right: 30px;
-        }
-
-        #check-btn:checked~.menubars {
-            display: block;
-            color: white;
-        }
-
-        .menubars {
-            display: none;
-            color: white;
+        .slide-box {
+            position: fixed;
+            top: -100px;
+            /* 초기 위치를 화면 상단 외부로 설정 */
+            width: 100%;
+            /* 화면 전체 너비를 사용 */
+            height: 50px;
+            /* 헤더 크기 설정 */
+            background-color: #f00;
+            transition: 2s;
+            /* 애니메이션 지속 시간 설정 */
         }
     </style>
 
@@ -430,7 +443,11 @@
 
             init();
         })();
-
+        window.onload = function () {
+            document.getElementById('slideButton').addEventListener('click', function () {
+                document.querySelector('.slide-box').style.top = '0px';
+            });
+        }
     </script>
 </head>
 
@@ -442,20 +459,8 @@
                     <div class="header-title">예매 순위</div>
                     <button type="button" class="btn btn-secondary" onclick="modalOn()">임시 예매 버튼</button>
                     <!-- 진짜 임시로 추가함 (영화 정보 페이지에 들어갈 버튼) -->
-                    <input id="check-btn" type="checkbox" />
-                    <label class="click-btn" for="check-btn">Click Me!</label>
-                    <div class="menu-icon">
-                        <span class="menu-icon_up"></span>
-                        <span class="menu-icon__center"></span>
-                        <span class="menu-icon__down"></span>
-                    </div>
-                    
-                    <ul class="menubars">
-                        <li>메뉴</li>
-                        <li>메뉴</li>
-                        <li>메뉴</li>
-                        <li>메뉴</li>
-                    </ul>
+                    <button id="slideButton">슬라이드 버튼</button>
+                    <div class="slide-box">여기에 내용을 입력하세요</div>
                 </div>
             </div>
             <div class="ranked-movie-container">
@@ -471,14 +476,16 @@
     <main>
         <div class="movie-list">
             <div class="movie-section-header">상영작</div>
+
             <div class="movie-container">
                 <div class="movie">
                     <img class="movie-poster" src="#" />
                     <div class="movie-name"><a href="#"></a></div>
                     <div class="movie-rate"></div>
                 </div>
-
             </div>
+        </div>
+
         </div>
     </main>
     <!-- VVVVV 예매 페이지 VVVVV -->
