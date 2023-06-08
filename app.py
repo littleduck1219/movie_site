@@ -43,8 +43,10 @@ def movie_post():
                 'url': url,
                 'content': summary_content
             }
-            db.movie.insert_one(doc)
 
+            print(doc)
+            db.movie.insert_one(doc)
+            
 
     return jsonify({'msg': 'POST 연결 완료!'})
 

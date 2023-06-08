@@ -2,589 +2,515 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-  <title>Document</title>
-  <style>
-    body {
-      background-color: rgb(0, 0, 0);
-      /* background-image: url("vincentiu-solomon-ln5drpv_ImI-unsplash.jpg"); */
-      background-size: cover;
-      background-position: center;
-    }
+    <link rel="stylesheet" href="style.scss">
 
-    a {
-      color: white;
-      text-decoration: none;
-    }
+    <title>Document</title>
+    <style>
+        body {
+            background-color: rgb(0, 0, 0);
+            /* background-image: url("unsplash.jpg"); */
+            background-size: cover;
+            background-position: center;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
 
-    .ranked-section-header {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
+        a {
+            color: white;
+            text-decoration: none;
+        }
 
-    #movie {
-      cursor: pointer;
-    }
+        .ranked-section-header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
 
-    #movie img,
-    .ranked-movie-rate,
-    .movie-rate {
-      pointer-events: none;
-    }
+        .header-title {
+            color: white;
+            font-size: 60px;
+            margin: 20px 0px 20px 20px;
+        }
 
-    .header-title {
-      color: white;
-      font-size: 60px;
-      margin: 20px 0px 20px 20px;
-    }
+        .ranked-movie-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: center;
+        }
 
-    .menu-btn {
-      width: 30px;
-      height: 30px;
-      background-color: black;
-      border: none;
-    }
+        .ranked-movie {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
 
-    .btn-img {
-      border: none;
-      background-color: black;
-    }
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 20px;
+            width: 60%;
+            height: 60%;
+            border-radius: 20px;
+        }
 
-    .ranked-movie-container {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: center;
-    }
-
-    .ranked-movie {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-
-      position: relative;
-      background-color: rgba(255, 255, 255, 0.1);
-      margin: 20px;
-      width: 60%;
-      height: 60%;
-      border-radius: 20px;
+        .ranked-movie-poster {
+            width: 80%;
+            height: 80%;
+            object-fit: cover;
+            padding-top: 30px;
+        }
 
 
-    }
+        .ranked-movie-name {
+            margin: 10px;
+            font-size: 1.5vw;
+            text-align: center;
 
-    .ranked-movie-poster {
-      width: 80%;
-      height: 80%;
-      object-fit: cover;
-      padding-top: 30px;
-    }
+            width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
+        }
 
-    .ranked-movie-name {
-      margin: 10px;
-      font-size: 1.5vw;
-      text-align: center;
+        .ranked-movie-rate {
+            color: white;
+            font-size: 0.8vw;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-      width: 300px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+        /* -----------------상영작-----------------  */
+        .movie-section-header {
+            color: white;
+            font-size: 60px;
+            margin: 20px 0px 20px 20px;
+        }
 
-    }
+        .movie-container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: wrap;
 
-    .ranked-movie-rate {
-      color: white;
-      font-size: 0.8vw;
-      text-align: center;
-      margin-bottom: 20px;
-    }
+        }
 
-    /* -----------------상영작-----------------  */
-    .movie-section-header {
-      color: white;
-      font-size: 60px;
-      margin: 20px 0px 20px 20px;
-    }
+        .movie {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
 
-    .movie-container {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: flex-start;
-      flex-wrap: wrap;
+            flex: 1 0 12.33%;
+            max-width: 12.33%;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin: 20px;
+            width: 60%;
+            height: 60%;
+            border-radius: 20px;
+        }
 
-    }
+        .movie-poster {
+            width: 80%;
+            height: 80%;
+            object-fit: cover;
+            padding-top: 30px;
+        }
 
-    .movie {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-
-      flex: 1 0 12.33%;
-      max-width: 12.33%;
-      box-sizing: border-box;
-      background-color: rgba(255, 255, 255, 0.1);
-      margin: 20px;
-      width: 60%;
-      height: 60%;
-      border-radius: 20px;
-    }
-
-    .movie-poster {
-      width: 80%;
-      height: 80%;
-      object-fit: cover;
-      padding-top: 30px;
-    }
-
-    .movie-name {
-      color: white;
-      /* font-size: 25px;
+        .movie-name {
+            color: white;
+            /* font-size: 25px;
             margin: 10px;
             font-size: 1vw;
             text-align: center; */
 
-      margin: 10px;
-      font-size: 0.8vw;
-      text-align: center;
+            margin: 10px;
+            font-size: 0.8vw;
+            text-align: center;
 
-      width: 300px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+            width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
 
-    }
+        }
 
-    .movie-rate {
-      color: white;
-      font-size: 0.6vw;
-      text-align: center;
-      margin-bottom: 20px;
-    }
+        .movie-rate {
+            color: white;
+            font-size: 0.6vw;
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-    /* -----------------예매 페이지 스타일-----------------  */
+        /* -----------------예매 페이지 스타일-----------------  */
 
-    .book-box {
-      background-color: white;
-      border: solid 1px black;
-      width: 80vw;
-      left: 10vw;
-      top: 10vh;
-      margin: auto;
-      position: absolute;
-      position: fixed;
-      display: none;
-      box-shadow: 0px 0px 20px 0px black;
-    }
+        .book-box {
+            background-color: white;
+            border: solid 1px black;
+            width: 80vw;
+            left: 10vw;
+            top: 10vh;
+            margin: auto;
+            position: absolute;
+            position: fixed;
+            display: none;
+            box-shadow: 0px 0px 20px 0px black;
+        }
 
-    .header {
-      background-color: black;
-      align-items: center;
-      color: white;
-      width: inherit;
-      height: 50px;
-    }
+        .header {
+            background-color: black;
+            align-items: center;
+            color: white;
+            width: inherit;
+            height: 50px;
+        }
 
-    .header h1 {
-      display: inline-block;
-      font-size: 20px;
-      padding-left: 20px;
-      line-height: 50px;
+        .header h1 {
+            display: inline-block;
+            font-size: 20px;
+            padding-left: 20px;
+            line-height: 50px;
 
-    }
+        }
 
-    .header button {
-      margin-top: 10px;
-      margin-right: 10px;
-      width: 30px;
-      height: 30px;
-      border-radius: 15px;
-      float: right;
-    }
+        .header button {
+            margin-top: 10px;
+            margin-right: 10px;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            float: right;
+        }
 
-    .select {
-      width: inherit;
-      height: 100px;
-    }
+        .select {
+            width: inherit;
+            height: 100px;
+        }
 
-    .seat {
-      margin: 70px 30px 30px;
-    }
+        .seat {
+            margin: 70px 30px 30px;
+        }
 
-    .check {
-      text-align: center;
-    }
+        .check {
+            text-align: center;
+        }
 
-    .check label {
-      text-align: center;
-      width: 60px;
-      font-size: 14px;
-      line-height: 25px;
-      margin-bottom: 5px;
+        .check label {
+            text-align: center;
+            width: 60px;
+            font-size: 14px;
+            line-height: 25px;
+            margin-bottom: 5px;
 
-    }
+        }
 
-    .footer {
-      width: inherit;
-      height: 70px;
-      background-color: black;
-      display: flex;
-      text-align: center;
-    }
+        .footer {
+            width: inherit;
+            height: 70px;
+            background-color: black;
+            display: flex;
+            text-align: center;
+        }
 
-    .msg {
-      width: 880px;
-      display: inline-block;
-      flex-direction: row;
-      justify-content: space-around;
-    }
+        .msg {
+            width: 880px;
+            display: inline-block;
+            flex-direction: row;
+            justify-content: space-around;
+        }
 
-    .msg h1 {
-      text-align: center;
-      display: inline-block;
-      line-height: 70px;
-      font-size: 20px;
-      color: white;
-    }
+        .msg h1 {
+            text-align: center;
+            display: inline-block;
+            line-height: 70px;
+            font-size: 20px;
+            color: white;
+        }
 
-    .footer button {
-      float: right;
-      border-radius: 20px;
-      height: 50px;
-      width: 80px;
-      margin: 10px 20px 10px 0px;
-      font-size: 18px;
-    }
-  </style>
+        .footer button {
+            float: right;
+            border-radius: 20px;
+            height: 50px;
+            width: 80px;
+            margin: 10px 20px 10px 0px;
+            font-size: 18px;
+        }
 
-  <style>
-    .info-box {
-      border-radius: 30px;
-      box-shadow: 0px 0px 30px 0px black;
-      display: none;
-      position: absolute;
-      position: fixed;
-      margin-left: 29%;
-      top: 200px;
-      background-color: white;
-      width: 800px;
-      height: 600px;
-    }
+        /* -----------------드롭다운 버튼-----------------  */
+        .menu-icon_up {
+            border-top: 3px solid white;
+        }
 
-    .info-inner {
-      margin: auto;
-      margin-top: 70px;
-      width: 650px;
-      display: flex;
-    }
+        .menu-icon_center {
+            border: 3px solid white;
+        }
 
-    .info-poster {
-      width: 256px;
-      height: 374px;
-      margin-right: 20px;
-    }
+        .menu-icon_down {
+            border: 3px solid white;
+        }
 
-    .info-content {
-      padding-left: 20px;
-    }
 
-    .info-title {
-      height: 70px;
-      font-size: 24px;
-      margin-bottom: 30px;
-    }
+        #check-btn {
+            display: none;
+            color: white;
+        }
 
-    .info-rate {
-      margin-top: 20px;
-      margin-bottom: 25px;
-      font-size: 15px;
-      color: gray;
-    }
+        .click-btn {
+            color: white;
+            margin-right: 30px;
+        }
 
-    .info-sum {
-      display: block;
-      color: black;
-      width: 300px;
-      font-size: 17px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: normal;
-      line-height: 1.2;
-      height: 225px;
-      word-wrap: break-word;
-      display: -webkit-box;
-      -webkit-line-clamp: 11;
-      -webkit-box-orient: vertical;
-      /*       
-      display: -webkit-box;
-      width: 300px;
-      font-size: 17px;
-      height: 300px;
-      white-space: nowrap;
-      word-wrap: break-word;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      -webkit-line-clamp: 10; */
-    }
+        #check-btn:checked~.menubars {
+            display: block;
+            color: white;
+        }
 
-    .info-box button {
-      position: relative;
-      display: block;
-      margin-top: 40px;
-      margin-left: 300px;
-      left: 50px;
-      width: 100px;
-    }
-  </style>
+        .menubars {
+            display: none;
+            color: white;
+        }
+    </style>
 
-  <script>
-    $(document).ready(function () {
-      $.post("http://localhost:8000/movie", function (data, status) {
-        listing();
-      });
-    });
+    <script>
+        $(document).ready(function () {
+            $.post("http://localhost:8000/movie", function (data, status) {
+                listing();
+            });
+        });
 
-    function listing() {
-      fetch('/movie').then(res => res.json()).then(data => {
-        let rows = data['result']
-        $('.ranked-movie-container').empty()
-        $('.movie-container').empty()
-        rows.forEach((a, index) => {
-          let title = a['title']
-          let poster = a['poster']
-          let rank = a['rank']
-          let rate = a['rate']
-          let url = a['url']
-          let ranked_temp_html = `<div class="ranked-movie" id="movie" onclick="info_get('${title}')">
+        function listing() {
+            fetch('/movie').then(res => res.json()).then(data => {
+                let rows = data['result']
+                $('.ranked-movie-container').empty()
+                $('.movie-container').empty()
+                rows.forEach((a, index) => {
+                    let title = a['title']
+                    let poster = a['poster']
+                    let rank = a['rank']
+                    let rate = a['rate']
+                    let url = a['url']
+                    let ranked_temp_html = `<div class="ranked-movie">
                                     <img class="ranked-movie-poster" src=${poster} />
                                     <div class="ranked-movie-name"><a href="https://movie.daum.net${url}">${title}</a></div>
                                     <div class="ranked-movie-rate">예매율: ${rate}</div>
                                 </div>`
 
-          let temp_html = `<div class="movie" id="movie" onclick="info_get('${title}')">
+                    let temp_html = `<div class="movie">
                                         <img class="movie-poster" src=${poster} />
                                         <div class="movie-name"><a href="https://movie.daum.net${url}">${title}</a></div>
                                         <div class="movie-rate">예매율: ${rate}</div>
                                     </div>`
 
-          if (index < 5) {
-            $('.ranked-movie-container').append(ranked_temp_html)
-          } else {
-            $('.movie-container').append(temp_html)
-          }
-        })
-      })
-    }
-  </script>
-  <!-- ----------------- 정보 페이지 스크립트 ----------------- -->
-  <script>
-
-    function info_get(title) {
-      fetch('/movie').then(res => res.json()).then(data => {
-        let rows = data['result']
-        $('#info-inner').empty();
-        rows.forEach((a, index) => {
-          if (String(a['title']) == title) {
-            let title = a['title']
-            let poster = a['poster']
-            let rate = a['rate']
-            let sum = a['content']
-            let temp_info = `<img class="info-poster" src=${poster}>
-                            <div class ="info-content">
-                                <div class ="info-title">${title}
-                                </div>
-                                <div class ="info-rate">${rate}
-                                </div>
-                                <div class="info-sum">${sum}</div>
-                            </div>`;
-            $('#info-inner').append(temp_info)
-
-          }
-        })
-      })
-      info_show();
-    }
-
-    function info_show() {
-      box = $('#info-box')
-      box.css("display", 'block')
-    }
-
-  </script>
-  <!-- --------------- 예매 페이지 스크립트 ----------------- -->
-  <script>
-    function modalOn() {
-      info_box = $('#info-box')
-      info_box.css("display", 'none')
-      box = $('#book-box')
-      box.css("display", 'block')
-      var box = $('#seat_check');
-      var row = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
-      var column = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
-      box.empty();
-      row.forEach((r) => {
-        column.forEach((c) => {
-          const seat_num = r + c;
-          let temp = `<input type="checkbox" class="btn-check" id="${seat_num}" value="${seat_num}" onclick="click_seat()">
-                <label class="btn btn-outline-primary" for="${seat_num}">${seat_num}</label>`;
-          box.append(temp);
-        });
-        box.append('<br>');
-      });
-    }
-    function modal() {
-      document.getElementsByClassName("btn-check").checked = false;
-      box = $('#book-box')
-      box.css("display", 'none')
-      $('#msg').html(`<h1>좌석을 선택하세요.</h1>`);
-    }
-
-    function click_seat() {
-      var arr = [];
-      const seat = document.getElementsByClassName("btn-check");
-      for (let i = 0; i < seat.length; i++) {
-        if (seat[i].checked == true) {
-          arr.push(seat[i].value);
+                    if (index < 5) {
+                        $('.ranked-movie-container').append(ranked_temp_html)
+                    } else {
+                        $('.movie-container').append(temp_html)
+                    }
+                })
+            })
         }
-      }
-      print_seat(arr);
 
-      return arr;
-    }
+        /*----------------- 예매 페이지 스크립트 ----------------- */
 
-    function print_seat(arr) {
-      $('#msg').empty();
-      let temp = `<h1>선택 좌석 : `;
-      switch (arr.length) {
-        case 0: temp = `<h1>좌석을 선택하세요.</h1>`
-          break;
-        case 1: temp = temp + `${arr[0]}</h1>`
-          break;
-        default:
-          for (let i = 0; i < arr.length - 1; i++) {
-            temp = temp + `${arr[i]}, `
-          }
-          temp = temp + `${arr[arr.length - 1]}</h1> `
-      }
-      $('#msg').append(temp);
-    }
-    function book_save(arr) {
-      if (arr.length != 0) {
-        alert("예약 완료!")
-        location.reload();
+        function modalOn() {
+            box = $('#book-box')
+            box.css("display", 'block')
+            var box = $('#seat_check');
+            var row = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+            var column = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
+            box.empty();
+            row.forEach((r) => {
+                column.forEach((c) => {
+                    const seat_num = r + c;
+                    let temp = `<input type="checkbox" class="btn-check" id="${seat_num}" value="${seat_num}" onclick="click_seat()">
+                <label class="btn btn-outline-primary" for="${seat_num}">${seat_num}</label>`;
+                    box.append(temp);
+                });
+                box.append('<br>');
+            });
+        }
+        function modal() {
+            document.getElementsByClassName("btn-check").checked = false;
+            box = $('#book-box')
+            box.css("display", 'none')
+            $('#msg').html(`<h1>좌석을 선택하세요.</h1>`);
+        }
 
-        save_book(arr)
-      } else {
-        alert("좌석이 선택되지 않았습니다.")
-      }
+        function click_seat() {
+            var arr = [];
+            const seat = document.getElementsByClassName("btn-check");
+            for (let i = 0; i < seat.length; i++) {
+                if (seat[i].checked == true) {
+                    arr.push(seat[i].value);
+                }
+            }
+            print_seat(arr);
 
-    }
-    function save_book(arr) {
-      let seat = arr;
+            return arr;
+        }
 
-      let formData = new FormData();
-      formData.append("seat_give", seat);
+        function print_seat(arr) {
+            $('#msg').empty();
+            let temp = `<h1>선택 좌석 : `;
+            switch (arr.length) {
+                case 0: temp = `<h1>좌석을 선택하세요.</h1>`
+                    break;
+                case 1: temp = temp + `${arr[0]}</h1>`
+                    break;
+                default:
+                    for (let i = 0; i < arr.length - 1; i++) {
+                        temp = temp + `${arr[i]}, `
+                    }
+                    temp = temp + `${arr[arr.length - 1]}</h1> `
+            }
+            $('#msg').append(temp);
+        }
+        function book_save(arr) {
+            if (arr.length != 0) {
+                alert("예약 완료!")
+                location.reload();
 
-      fetch('/book', { method: "POST", body: formData }).then((response) => response.json()).then((data) => { });
-    }
-  </script>
+                save_book(arr)
+            } else {
+                alert("좌석이 선택되지 않았습니다.")
+            }
+
+        }
+        function save_book(arr) {
+            let seat = arr;
+
+            let formData = new FormData();
+            formData.append("seat_give", seat);
+
+            fetch('/book', { method: "POST", body: formData }).then((response) => response.json()).then((data) => { });
+        }
+        console.clear();
+
+        const app = (() => {
+            let body;
+            let menu;
+            let menuItems;
+
+            const init = () => {
+                body = document.querySelector('body');
+                menu = document.querySelector('.menu-icon');
+                menuItems = document.querySelectorAll('.nav__list-item');
+
+                applyListeners();
+            }
+
+            const applyListeners = () => {
+                menu.addEventListener('click', () => toggleClass(body, 'nav-active'));
+            }
+
+            const toggleClass = (element, stringClass) => {
+                if (element.classList.contains(stringClass))
+                    element.classList.remove(stringClass);
+                else
+                    element.classList.add(stringClass);
+            }
+
+            init();
+        })();
+
+    </script>
 </head>
 
 <body>
-  <div class="background">
-    <header>
-      <div class="randedMovieList">
-        <div class="ranked-section-header">
-          <div class="header-title">예매 순위</div>
-          <div class="menu">
-            <button class="menu-btn">
-              <img class="btn-img" src="button.png" alt="">
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="ranked-movie-container">
-        <div class="ranked-movie">
-          <img class="ranked-movie-poster" src="#" />
-          <div class="ranked-movie-name"></div>
-          <div class="ranked-movie-rate"></div>
-        </div>
+    <div class="background">
+        <header>
+            <div class="randedMovieList">
+                <div class="ranked-section-header">
+                    <div class="header-title">예매 순위</div>
+                    <button type="button" class="btn btn-secondary" onclick="modalOn()">임시 예매 버튼</button>
+                    <!-- 진짜 임시로 추가함 (영화 정보 페이지에 들어갈 버튼) -->
+                    <input id="check-btn" type="checkbox" />
+                    <label class="click-btn" for="check-btn">Click Me!</label>
+                    <div class="menu-icon">
+                        <span class="menu-icon_up"></span>
+                        <span class="menu-icon__center"></span>
+                        <span class="menu-icon__down"></span>
+                    </div>
+                    
+                    <ul class="menubars">
+                        <li>메뉴</li>
+                        <li>메뉴</li>
+                        <li>메뉴</li>
+                        <li>메뉴</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="ranked-movie-container">
+                <div class="ranked-movie">
+                    <img class="ranked-movie-poster" src="#" />
+                    <div class="ranked-movie-name"></div>
+                    <div class="ranked-movie-rate"></div>
+                </div>
 
-      </div>
-    </header>
-  </div>
-  <main>
-    <div class="movie-list">
-      <div class="movie-section-header">상영작</div>
-      <div class="movie-container">
-        <div class="movie">
-          <img class="movie-poster" src="#" />
-          <div class="movie-name"><a href="#"></a></div>
-          <div class="movie-rate"></div>
-        </div>
+            </div>
+        </header>
+    </div>
+    <main>
+        <div class="movie-list">
+            <div class="movie-section-header">상영작</div>
+            <div class="movie-container">
+                <div class="movie">
+                    <img class="movie-poster" src="#" />
+                    <div class="movie-name"><a href="#"></a></div>
+                    <div class="movie-rate"></div>
+                </div>
 
-      </div>
-    </div>
-  </main>
-  <div class="info-box" id="info-box">
-    <div class="info-inner" id="info-inner">
-      <img class="info-poster">
-      <div class="info-content">
-        <div class="info-title">여기 제목</div>
-        <div class="info-rate">여기 평점</div>
-        <div class="info-sum">대충 줄거리</div>
-      </div>
-    </div>
-    <button type="button" class="btn btn-outline-warning" onclick="modalOn()">예매하기</button>
-  </div>
-  <!-- --------------- 예매 페이지 --------------- -->
-  <div class="book-box" id="book-box">
-    <div class="header">
-      <h1>영화 예매하기</h1>
-      <button type="button" class="btn btn-outline-light" onclick="modal()"></button>
-    </div>
-    <div class="select">
-    </div>
-    <div class="body">
-      <div class="seat">
-        <div id="seat_check" class="check">
-          <input type="checkbox" class="btn-check" id="A1" value="A1" onclick="click_seat()">
-          <label class="btn btn-outline-primary" for="A1">A1</label>
-          <input type="checkbox" class="btn-check" id="A2" value="A2" onclick="click_seat()">
-          <label class="btn btn-outline-primary" for="A2">A2</label>
-          <input type="checkbox" class="btn-check" id="A3" value="A3" onclick="click_seat()">
-          <label class="btn btn-outline-primary" for="A3">A3</label>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="footer" id="footer">
-      <div class="msg" id="msg">
-        <!-- <h1>영화 제목</h1>
+    </main>
+    <!-- VVVVV 예매 페이지 VVVVV -->
+    <div class="book-box" id="book-box">
+        <div class="header">
+            <h1>영화 예매하기</h1>
+            <button type="button" class="btn btn-outline-light" onclick="modal()"></button>
+        </div>
+        <div class="select">
+        </div>
+        <div class="body">
+            <div class="seat">
+                <div id="seat_check" class="check">
+                    <input type="checkbox" class="btn-check" id="A1" value="A1" onclick="click_seat()">
+                    <label class="btn btn-outline-primary" for="A1">A1</label>
+                    <input type="checkbox" class="btn-check" id="A2" value="A2" onclick="click_seat()">
+                    <label class="btn btn-outline-primary" for="A2">A2</label>
+                    <input type="checkbox" class="btn-check" id="A3" value="A3" onclick="click_seat()">
+                    <label class="btn btn-outline-primary" for="A3">A3</label>
+                </div>
+            </div>
+        </div>
+        <div class="footer" id="footer">
+            <div class="msg" id="msg">
+                <!-- <h1>영화 제목</h1>
                         <h1>선택 날짜</h1> -->
-        <h1>좌석을 선택하세요.</h1>
-      </div>
-      <button type="button" class="btn btn-outline-light" onclick="book_save(click_seat())">예약</button>
+                <h1>좌석을 선택하세요.</h1>
+            </div>
+            <button type="button" class="btn btn-outline-light" onclick="book_save(click_seat())">예약</button>
+        </div>
     </div>
-  </div>
-  <footer>
+    <footer>
 
-  </footer>
+    </footer>
 </body>
 
 </html>
