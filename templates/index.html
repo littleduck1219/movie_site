@@ -285,6 +285,84 @@
             display: none;
             color: white;
         }
+
+        /* ------------- 정보페이지 스타일 ------------- */
+        .info-box {
+            border-radius: 30px;
+            box-shadow: 0px 0px 30px 0px black;
+            display: none;
+            position: absolute;
+            position: fixed;
+            margin-left: 29%;
+            top: 200px;
+            background-color: white;
+            width: 800px;
+            height: 600px;
+        }
+
+        .info-box .btn-outline-dark{
+            margin-top: 15px;
+            margin-right: 15px;
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            float: right;
+        }
+
+        .info-inner {
+            margin: auto;
+            margin-top: 70px;
+            width: 650px;
+            display: flex;
+        }
+
+        .info-poster {
+            width: 256px;
+            height: 374px;
+            margin-right: 20px;
+        }
+
+        .info-content {
+            padding-left: 20px;
+        }
+
+        .info-title {
+            height: 70px;
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .info-rate {
+            margin-top: 20px;
+            margin-bottom: 25px;
+            font-size: 15px;
+            color: gray;
+        }
+
+        .info-sum {
+            display: block;
+            color: black;
+            width: 300px;
+            font-size: 17px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: normal;
+            line-height: 1.2;
+            height: 225px;
+            word-wrap: break-word;
+            display: -webkit-box;
+            -webkit-line-clamp: 11;
+            -webkit-box-orient: vertical;
+            }
+
+        .info-box .btn-outline-warning {
+            position: relative;
+            display: block;
+            margin-top: 40px;
+            margin-left: 300px;
+            left: 50px;
+            width: 100px;
+        }
     </style>
 
     <script>
@@ -305,13 +383,13 @@
                     let rank = a['rank']
                     let rate = a['rate']
                     let url = a['url']
-                    let ranked_temp_html = `<div class="ranked-movie">
+                    let ranked_temp_html = `<div class="ranked-movie" onclick="info_get('${title}')">
                                     <img class="ranked-movie-poster" src=${poster} />
                                     <div class="ranked-movie-name"><a href="https://movie.daum.net${url}">${title}</a></div>
                                     <div class="ranked-movie-rate">예매율: ${rate}</div>
                                 </div>`
 
-                    let temp_html = `<div class="movie">
+                    let temp_html = `<div class="movie" id="movie" onclick="info_get('${title}')">
                                         <img class="movie-poster" src=${poster} />
                                         <div class="movie-name"><a href="https://movie.daum.net${url}">${title}</a></div>
                                         <div class="movie-rate">예매율: ${rate}</div>
@@ -325,10 +403,48 @@
                 })
             })
         }
+        /* ----------------- 정보 페이지 스크립트 -----------------*/
+
+        function info_get(title) {
+            fetch('/movie').then(res => res.json()).then(data => {
+                let rows = data['result']
+                $('#info-inner').empty();
+                rows.forEach((a, index) => {
+                    if (String(a['title']) == title) {
+                        let title = a['title']
+                        let poster = a['poster']
+                        let rate = a['rate']
+                        let sum = a['content']
+                        let temp_info = `<img class="info-poster" src=${poster}>
+                            <div class ="info-content">
+                                <div class ="info-title">${title}
+                                </div>
+                                <div class ="info-rate">예매율: ${rate}
+                                </div>
+                                <div class="info-sum"> ${sum}</div>
+                            </div>`;
+                        $('#info-inner').append(temp_info)
+
+                    }
+                })
+            })
+            info_show();
+        }
+
+        function info_show() {
+            box = $('#info-box')
+            box.css("display", 'block')
+        }
+        function info_hide() {
+            box = $('#info-box')
+            box.css("display", 'none')
+        }
 
         /*----------------- 예매 페이지 스크립트 ----------------- */
 
         function modalOn() {
+            info_box = $('#info-box')
+            info_box.css("display", 'none')
             box = $('#book-box')
             box.css("display", 'block')
             var box = $('#seat_check');
@@ -438,8 +554,6 @@
             <div class="randedMovieList">
                 <div class="ranked-section-header">
                     <div class="header-title">예매 순위</div>
-                    <button type="button" class="btn btn-secondary" onclick="modalOn()">임시 예매 버튼</button>
-                    <!-- 진짜 임시로 추가함 (영화 정보 페이지에 들어갈 버튼) -->
                     <input id="check-btn" type="checkbox" />
                     <label class="click-btn" for="check-btn">Click Me!</label>
                     <div class="menu-icon">
@@ -447,7 +561,7 @@
                         <span class="menu-icon__center"></span>
                         <span class="menu-icon__down"></span>
                     </div>
-                    
+
                     <ul class="menubars">
                         <li>메뉴</li>
                         <li>메뉴</li>
@@ -479,7 +593,19 @@
             </div>
         </div>
     </main>
-    <!-- VVVVV 예매 페이지 VVVVV -->
+    <div class="info-box" id="info-box">
+        <button type="button" class="btn btn-outline-dark" onclick="info_hide()"></button>
+        <div class="info-inner" id="info-inner">
+            <img class="info-poster">
+            <div class="info-content">
+                <div class="info-title">여기 제목</div>
+                <div class="info-rate">여기 평점</div>
+                <div class="info-sum">대충 줄거리</div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-outline-warning" onclick="modalOn()">예매하기</button>
+    </div>
+    <!-- --------------- 예매 페이지 --------------- -->
     <div class="book-box" id="book-box">
         <div class="header">
             <h1>영화 예매하기</h1>
