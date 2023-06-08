@@ -41,24 +41,36 @@ def movie_post():
                 'url': url
             }
             db.movie.insert_one(doc)
+        print(rank, title, rate, poster, url)
     
     return jsonify({'msg': 'POST 연결 완료!'})
+    
+@app.route("/movie", methods=["GET"])
+def movie_get():
+    all_movie = list(db.movie.find({},{'_id':False}))
+    return jsonify({'result': all_movie})
 
 @app.route("/book", methods=["POST"])
 def book_get():
     seat_receive = request.form['seat_give']
+    year_receive = request.form['year_give']
+    month_receive = request.form['month_give']
+    date_receive = request.form['date_give']
+    name_receive = request.form['name_give']
     
     doc = {
-        'seat': seat_receive
+        'seat': seat_receive,
+        'year': year_receive,
+        'month': month_receive,
+        'date': date_receive,
+        'name': name_receive
     }
     db.booked.insert_one(doc)
 
     return jsonify({'msg': '예약 저장 완료!'})
 
-@app.route("/movie", methods=["GET"])
-def movie_get():
-    all_movie = list(db.movie.find({},{'_id':False}))
-    return jsonify({'result': all_movie})
+# 영화예매 db저장
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8000, debug=True)
