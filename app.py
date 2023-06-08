@@ -41,14 +41,8 @@ def movie_post():
                 'url': url
             }
             db.movie.insert_one(doc)
-        print(rank, title, rate, poster, url)
     
     return jsonify({'msg': 'POST 연결 완료!'})
-    
-@app.route("/movie", methods=["GET"])
-def movie_get():
-    all_movie = list(db.movie.find({},{'_id':False}))
-    return jsonify({'result': all_movie})
 
 @app.route("/book", methods=["POST"])
 def book_get():
@@ -69,8 +63,10 @@ def book_get():
 
     return jsonify({'msg': '예약 저장 완료!'})
 
-# 영화예매 db저장
-#
+@app.route("/movie", methods=["GET"])
+def movie_get():
+    all_movie = list(db.movie.find({},{'_id':False}))
+    return jsonify({'result': all_movie})
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=8000, debug=True)
