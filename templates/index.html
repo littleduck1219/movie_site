@@ -86,20 +86,22 @@
 
 
         .ranked-movie-name {
-            font-size: 40px;
             margin: 10px;
-            font-size: 2vw;
+            font-size: 1.5vw;
             text-align: center;
 
-            width: 100px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            width:300px; 
+            white-space:nowrap; 
+            overflow:hidden; 
+            text-overflow:ellipsis;
+
         }
 
         .ranked-movie-rate {
             color: white;
-            font-size: 30px;
+            font-size: 0.8vw;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
 /* -----------------상영작-----------------  */
@@ -143,15 +145,27 @@
 
         .movie-name {
             color: white;
-            font-size: 25px;
+            /* font-size: 25px;
             margin: 10px;
             font-size: 1vw;
+            text-align: center; */
+
+            margin: 10px;
+            font-size: 0.8vw;
             text-align: center;
+
+            width:300px; 
+            white-space:nowrap; 
+            overflow:hidden; 
+            text-overflow:ellipsis;
+
         }
 
         .movie-rate {
             color: white;
-            font-size: 20px;
+            font-size: 0.6vw;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
 /* -----------------예매 페이지 스타일-----------------  */
@@ -270,13 +284,13 @@
                     let ranked_temp_html = `<div class="ranked-movie">
                                     <img class="ranked-movie-poster" src=${poster} />
                                     <div class="ranked-movie-name"><a href="https://movie.daum.net${url}">${title}</a></div>
-                                    <div class="ranked-movie-rate">평점 ${rate}</div>
+                                    <div class="ranked-movie-rate">예매율: ${rate}</div>
                                 </div>`
 
                     let temp_html = `<div class="movie">
                                         <img class="movie-poster" src=${poster} />
                                         <div class="movie-name"><a href="https://movie.daum.net${url}">${title}</a></div>
-                                        <div class="movie-rate">${rate}</div>
+                                        <div class="movie-rate">예매율: ${rate}</div>
                                     </div>`
 
                     if (index < 5) {
