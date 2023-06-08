@@ -16,21 +16,23 @@ def home():
 @app.route("/movie", methods=["POST"])
 def movie_post():
     URL = "https://movie.daum.net/ranking/reservation"
-    headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36'}
     data = requests.get(URL, headers=headers)
     soup = BeautifulSoup(data.text, 'html.parser')
 
     lis = soup.select("#mainContent > div > div.box_ranking > ol > li")
+    comment_content = soup.select("#mainContent > div > div.box_ranking > ol > li > div > div.thumb_item div.poster_info a")
 
     # 기존 데이터 삭제
     db.movie.delete_many({})
 
-    for li in lis:
+    for li, comm in zip(lis, comment_content):
         title = li.select_one('.link_txt').text
         rate = li.select_one('.txt_num').text
-        poster = li.select_one('.poster_movie>img')['src']
+        poster = li.select_one('.poster_movie > img')['src']
         rank = li.select_one('.rank_num').text
         url = li.select_one('.link_txt')['href']
+        summary_content = li.select_one('.link_story').text
 
         if title is not None:
             doc = {
@@ -38,10 +40,14 @@ def movie_post():
                 'poster': poster,
                 'rank': rank,
                 'rate': rate,
-                'url': url
+                'url': url,
+                'content': summary_content
             }
+
+            print(doc)
             db.movie.insert_one(doc)
-    
+            
+
     return jsonify({'msg': 'POST 연결 완료!'})
 
 @app.route("/book", methods=["POST"])
