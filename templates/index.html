@@ -15,11 +15,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css">
-
-
     <title>Document</title>
     <style>
         body {
@@ -35,7 +30,6 @@
             color: white;
             text-decoration: none;
         }
-
         .ranked-section-header {
             display: flex;
             flex-direction: row;
@@ -268,37 +262,76 @@
         }
 
         /* -----------------드롭다운 버튼-----------------  */
+        @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 
-        .menu-icon {
-            width: 30px;
-            height: 30px;
-            border: 2px solid white;
+        .dropdown-label {
+            font-size: 12px;
+            margin: 10px;
+            font-weight: bold;
+            color: rgb(50, 50, 50);
         }
 
-        .menu-icon_up {
-            border-top: 3px solid white;
+        .dropdown {
+            position: relative;
+            display: flex;
+            margin-right: auto;
         }
 
-        .menu-icon_center {
-            border: 3px solid white;
+        .dropbtn_icon {
+            font-family: 'Material Icons';
         }
 
-        .menu-icon_down {
-            border: 3px solid white;
+        .dropbtn {
+            display: block;
+            border: 2px solid rgb(94, 94, 94);
+            border-radius: 4px;
+            background-color: #fcfcfc;
+            font-weight: 400;
+            color: rgb(124, 124, 124);
+            padding: 12px;
+            width: 240px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 12px;
+            z-index: 1;
+            position: relative;
         }
 
+        .dropdown-content {
+            display: none;
+            font-weight: 400;
+            background-color: #fcfcfc;
+            min-width: 240px;
+            border-radius: 8px;
+            height: 160px;
+            overflow: scroll;
+            box-shadow: 0px 0px 10px 3px rgba(190, 190, 190, 0.6);
+        }
 
-        .slide-box {
-            position: fixed;
-            top: -100px;
-            /* 초기 위치를 화면 상단 외부로 설정 */
-            width: 100%;
-            /* 화면 전체 너비를 사용 */
-            height: 50px;
-            /* 헤더 크기 설정 */
-            background-color: #f00;
-            transition: 2s;
-            /* 애니메이션 지속 시간 설정 */
+        .dropdown-content::-webkit-scrollbar {
+            width: 5px;
+            height: 10px;
+        }
+
+        .dropdown-content::-webkit-scrollbar-thumb {
+            border-radius: 2px;
+            background-color: rgb(194, 194, 194)
+        }
+
+        .dropdown-content div {
+            display: block;
+            text-decoration: none;
+            color: rgb(37, 37, 37);
+            font-size: 12px;
+            padding: 12px 20px;
+        }
+
+        .dropdown-content div:hover {
+            background-color: rgb(226, 226, 226);
+        }
+
+        .dropdown-content.show {
+            display: block;
         }
     </style>
 
@@ -415,62 +448,92 @@
 
             fetch('/book', { method: "POST", body: formData }).then((response) => response.json()).then((data) => { });
         }
-        console.clear();
 
-        const app = (() => {
-            let body;
-            let menu;
-            let menuItems;
-
-            const init = () => {
-                body = document.querySelector('body');
-                menu = document.querySelector('.menu-icon');
-                menuItems = document.querySelectorAll('.nav__list-item');
-
-                applyListeners();
+        /*----------------- 드롭다운버튼 ----------------- */
+        window.onload = () => {
+            document.querySelector('.dropbtn_click').onclick = () => {
+                dropdown();
+            }
+            document.getElementsByClassName('fastfood').onclick = () => {
+                showMenu(value);
+            };
+            dropdown = () => {
+                var v = document.querySelector('.dropdown-content');
+                var dropbtn = document.querySelector('.dropbtn')
+                v.classList.toggle('show');
+                dropbtn.style.borderColor = 'rgb(94, 94, 94)';
             }
 
-            const applyListeners = () => {
-                menu.addEventListener('click', () => toggleClass(body, 'nav-active'));
-            }
+            showMenu = (value) => {
+                var dropbtn_icon = document.querySelector('.dropbtn_icon');
+                var dropbtn_content = document.querySelector('.dropbtn_content');
+                var dropbtn_click = document.querySelector('.dropbtn_click');
+                var dropbtn = document.querySelector('.dropbtn');
 
-            const toggleClass = (element, stringClass) => {
-                if (element.classList.contains(stringClass))
-                    element.classList.remove(stringClass);
-                else
-                    element.classList.add(stringClass);
+                dropbtn_icon.innerText = '';
+                dropbtn_content.innerText = value;
+                dropbtn_content.style.color = '#252525';
+                dropbtn.style.borderColor = '#3992a8';
             }
-
-            init();
-        })();
-        window.onload = function () {
-            document.getElementById('slideButton').addEventListener('click', function () {
-                document.querySelector('.slide-box').style.top = '0px';
-            });
         }
+        window.onclick = (e) => {
+            if (!e.target.matches('.dropbtn_click')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+
+                var dropbtn_icon = document.querySelector('.dropbtn_icon');
+                var dropbtn_content = document.querySelector('.dropbtn_content');
+                var dropbtn_click = document.querySelector('.dropbtn_click');
+                var dropbtn = document.querySelector('.dropbtn');
+
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+
     </script>
 </head>
 
 <body>
     <div class="background">
         <header>
-            <div class="randedMovieList">
+            <div class="rankedMovieList">
+                <!-- ----------------- 드롭다운버튼 ----------------- -->
+                <div class="dropdown">
+                    <button class="dropbtn">
+                        <span class="dropbtn_icon"></span>
+                        <span class="dropbtn_content"></span>
+                        <span class="material-symbols-outlined dropbtn_click" >menu </span>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="fastfood" onclick="showMenu(this.innerText)">Burgerking</div>
+                        <div class="fastfood" onclick="showMenu(this.innerText)">Mcdonals</div>
+                        <div class="fastfood" onclick="showMenu(this.innerText)">Lotteria</div>
+                        <div class="fastfood" onclick="showMenu(this.innerText)">Mom's touch</div>
+                        <div class="fastfood" onclick="showMenu(this.innerText)">In n out</div>
+                        <div class="fastfood" onclick="showMenu(this.innerText)">Subway</div>
+                        <div class="fastfood" onclick="showMenu(this.innerText)">Shake shack</div>
+                    </div>
+                </div>
+
+                <!-- ----------------- 예매 순위 ----------------- -->
                 <div class="ranked-section-header">
                     <div class="header-title">예매 순위</div>
                     <button type="button" class="btn btn-secondary" onclick="modalOn()">임시 예매 버튼</button>
-                    <!-- 진짜 임시로 추가함 (영화 정보 페이지에 들어갈 버튼) -->
-                    <button id="slideButton">슬라이드 버튼</button>
-                    <div class="slide-box">여기에 내용을 입력하세요</div>
-                </div>
-            </div>
-            <div class="ranked-movie-container">
-                <div class="ranked-movie">
-                    <img class="ranked-movie-poster" src="#" />
-                    <div class="ranked-movie-name"></div>
-                    <div class="ranked-movie-rate"></div>
-                </div>
 
-            </div>
+                </div>
+                <div class="ranked-movie-container">
+                    <div class="ranked-movie">
+                        <img class="ranked-movie-poster" src="#" />
+                        <div class="ranked-movie-name"></div>
+                        <div class="ranked-movie-rate"></div>
+                    </div>
+
+                </div>
         </header>
     </div>
     <main>

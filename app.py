@@ -25,6 +25,7 @@ def movie_post():
 
     # 기존 데이터 삭제
     db.movie.delete_many({})
+    db.booked.delete_many({})
 
     for li, comm in zip(lis, comment_content):
         title = li.select_one('.link_txt').text
