@@ -57,12 +57,15 @@ def book_get():
     date_receive = request.form['date_give']
     name_receive = request.form['name_give']
     
+    book_poster = list(db.movie.find_one({'title':name_receive}))
+
     doc = {
         'seat': seat_receive,
         'year': year_receive,
         'month': month_receive,
         'date': date_receive,
-        'name': name_receive
+        'name': name_receive,
+        'poster':book_poster['poster']
     }
     db.booked.insert_one(doc)
 

@@ -288,7 +288,8 @@
         /* -----------------드롭다운 버튼-----------------  */
         .dropdown {
             position: relative;
-            display: block;
+            height: fit-content;
+            display: none;
 
         }
 
@@ -310,15 +311,13 @@
             margin: 30px 30px 0 auto;
         }
 
-        .dropdown-content {
-            display: none;
-            font-weight: 400;
-            background-color: black;
-            min-width: 240px;
-            border-radius: 8px;
-            height: 500px;
-            overflow: scroll;
-            /* box-shadow: 0px 0px 10px 3px rgba(190, 190, 190, 0.6); */
+        .reservation-movie {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            width: fit-content;
         }
 
         .dropdown-content::-webkit-scrollbar {
@@ -331,19 +330,28 @@
             background-color: rgb(194, 194, 194)
         }
 
-        .dropdown-content div {
-            display: block;
-            text-decoration: none;
-            color: rgb(37, 37, 37);
-            font-size: 12px;
-            padding: 12px 20px;
+        .booked-movie {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+
+            text-align: center;
+            flex: 1 0 12.33%;
+            box-sizing: border-box;
+            background-color: rgba(255, 255, 255, 0.7);
+            margin: 15px;
+            width: auto;
+            padding: 30px 10px 30px 10px;
+            height: inherit;
+            border-radius: 20px;
         }
 
-        .dropdown-content div:hover {
+        /* .dropdown-content div:hover {
             background-color: rgb(226, 226, 226);
-        }
+        } */
 
-        .dropdown-content.show {
+        .dropdown.show {
             display: block;
         }
 
@@ -354,7 +362,6 @@
             background-color: white;
             width: 130px;
             height: 50px;
-            margin-top: 400px;
             margin-left: 1700px;
 
         }
@@ -613,10 +620,9 @@
                 showMenu(value);
             };
             dropdown = () => {
-                var v = document.querySelector('.dropdown-content');
+                var v = document.querySelector('.dropdown');
                 var dropbtn = document.querySelector('.dropbtn')
                 v.classList.toggle('show');
-                dropbtn.style.borderColor = 'rgb(94, 94, 94)';
             }
 
             showMenu = (value) => {
@@ -632,39 +638,27 @@
             }
         }
 
-        window.onclick = (e) => {
-            if (!e.target.matches('.dropbtn_click')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
 
-                var dropbtn_icon = document.querySelector('.dropbtn_icon');
-                var dropbtn_content = document.querySelector('.dropbtn_content');
-                var dropbtn_click = document.querySelector('.dropbtn_click');
-                var dropbtn = document.querySelector('.dropbtn');
-
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
 
         /*----------------- 예매 확인 ----------------- */
         function reservation_check() {
             fetch('/book').then(res => res.json()).then(data => {
                 let rows = data['result']
-                rows.forEach((a, index) => {
+                $('#reservation-movie').empty();
+                rows.forEach((a) => {
                     let seat = a['seat']
                     let year = a['year']
                     let month = a['month']
                     let date = a['date']
                     let name = a['name']
+                    let poster = a['poster']
 
                     let temp_html_book = `<div class="booked-movie">
-                                                <div>${name}</div>
-                                                <div>${year}-${month}-${date}$</div>
+                        <img class="info-poster" style="width:158px; height: 231px; margin:0px 10px 30px 10px" src=${poster}>
+                                                <div style="margin-bottom:15px; font-size:24px">${name}</div>
+                                                <div style="margin-bottom:5px">${year}-${month}-${date}</div>
+                                                <div style="color:red; font-size:18px">${seat}</div>
+
                                             </div>`
 
                     $('#reservation-movie').append(temp_html_book);
@@ -678,7 +672,7 @@
                 let rows = data['result']
                 rows.forEach((a, index) => {
                     let title = a['title']
-                    let temp_movie = `<option value=${title}> ${title} </option>`
+                    let temp_movie = `<option value="${title}"> ${title} </option>`
                     $("#movie-title").append(temp_movie)
                 })
             })
@@ -718,36 +712,41 @@
         <header>
             <div class="rankedMovieList">
                 <!-- ----------------- 드롭다운버튼 ----------------- -->
-                <div class="dropdown">
-                    <button class="dropbtn">
-                        <span class="dropbtn_icon"></span>
-                        <span class="dropbtn_content"></span>
-                        <img class="dropbtn_click" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcbnJhB%2Fbtsjawnq3aO%2FkQJiPbvfsCUf4ScLvgfTGK%2Fimg.png">
-                        <!-- <span class="material-symbols-outlined dropbtn_click">menu </span> -->
-                    </button>
+                <button class="dropbtn">
+                    <span class="dropbtn_icon"></span>
+                    <span class="dropbtn_content"></span>
+                    <img class="dropbtn_click"
+                        src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcbnJhB%2Fbtsjawnq3aO%2FkQJiPbvfsCUf4ScLvgfTGK%2Fimg.png">
+                    <!-- <span class="material-symbols-outlined dropbtn_click">menu </span> -->
+                </button>
+                <div class="dropdown" id="dropdown">
                     <div class="dropdown-content">
+                        <h1 style="display: inline-block;
+                        color: white;
+                        font-size: 50px;
+                        padding-left: 20px;
+                        line-height: 50px;"">예매 정보</h1>
                         <div class="reservation-movie" id="reservation-movie" onclick="showMenu(this.innerText)"">
-                            <div class="booked-movie">
+                            <div class=" booked-movie">
 
-                            </div>
                         </div>
-                        <button type="button" class="reservation-check" onclick="modalOn()">임시 예매 버튼</button>
                     </div>
-                    
                 </div>
 
-                <!-- ----------------- 예매 순위 ----------------- -->
-                <div class=" ranked-section-header">
-                            <div class="header-title">예매 순위</div>
-                            
-                        </div>
-                        <div class="ranked-movie-container">
-                            <div class="ranked-movie">
-                                <img class="ranked-movie-poster" src="#" />
-                                <div class="ranked-movie-name"></div>
-                                <div class="ranked-movie-rate"></div>
-                            </div>
-                        </div>
+            </div>
+
+            <!-- ----------------- 예매 순위 ----------------- -->
+            <div class=" ranked-section-header">
+                <div class="header-title">예매 순위</div>
+
+            </div>
+            <div class="ranked-movie-container">
+                <div class="ranked-movie">
+                    <img class="ranked-movie-poster" src="#" />
+                    <div class="ranked-movie-name"></div>
+                    <div class="ranked-movie-rate"></div>
+                </div>
+            </div>
         </header>
     </div>
     <main>
