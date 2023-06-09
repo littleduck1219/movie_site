@@ -442,6 +442,7 @@
         $(document).ready(function () {
             $.post("http://localhost:8000/movie", function (data, status) {
                 listing();
+                reservation_check();
             });
         });
 
@@ -477,12 +478,12 @@
             })
         }
         /* ----------------- 정보 페이지 스크립트 -----------------*/
-        function info_get(title) {
+        function info_get(get_title) {
             fetch('/movie').then(res => res.json()).then(data => {
                 let rows = data['result']
                 $('#info-inner').empty();
                 rows.forEach((a, index) => {
-                    if (String(a['title']) == title) {
+                    if (String(a['title']) == get_title) {
                         let title = a['title']
                         let poster = a['poster']
                         let rate = a['rate']
@@ -661,12 +662,12 @@
                     let date = a['date']
                     let name = a['name']
 
-                    let temp_html_book = `<div class="dropdown-content">
-                                            <div class="reservation-movie" onclick="showMenu(this.innerText)>
+                    let temp_html_book = `<div class="booked-movie">
                                                 <div>${name}</div>
                                                 <div>${year}-${month}-${date}$</div>
-                                            </div>
-                                        </div>`
+                                            </div>`
+
+                    $('#reservation-movie').append(temp_html_book);
                 })
             })
         }
@@ -725,7 +726,11 @@
                         <!-- <span class="material-symbols-outlined dropbtn_click">menu </span> -->
                     </button>
                     <div class="dropdown-content">
-                        <div class="reservation-movie" onclick="showMenu(this.innerText)""></div>
+                        <div class="reservation-movie" id="reservation-movie" onclick="showMenu(this.innerText)"">
+                            <div class="booked-movie">
+
+                            </div>
+                        </div>
                         <button type="button" class="reservation-check" onclick="modalOn()">임시 예매 버튼</button>
                     </div>
                     
