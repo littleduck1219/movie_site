@@ -278,6 +278,12 @@
             font-size: 30px;
             text-align: center;
         }
+
+        .cal{
+            height: 10px; 
+            margin-left: 320px; 
+            margin-top: 10px;
+        }
         
 
         /* -----------------드롭다운 버튼-----------------  */
@@ -525,6 +531,8 @@
                 });
                 box.append('<br>');
             });
+            movie_date()
+            movie_doc()
         }
         function modal() {
             document.getElementsByClassName("btn-check").checked = false;
@@ -675,6 +683,10 @@
             }
         }
 
+        function movie_sum(){
+
+        }
+
     </script>
 </head>
 
@@ -703,15 +715,6 @@
                 <!-- ----------------- 예매 순위 ----------------- -->
                 <div class="ranked-section-header">
                     <div class="header-title">예매 순위</div>
-                    <button type="button" class="btn btn-secondary" onclick="modalOn()">임시 예매 버튼</button>
-                </div>
-                <div class="ranked-movie-container">
-                    <div class="ranked-movie">
-                        <img class="ranked-movie-poster" src="#" />
-                        <div class="ranked-movie-name"></div>
-                        <div class="ranked-movie-rate"></div>
-                    </div>
-
                 </div>
         </header>
     </div>
@@ -754,7 +757,7 @@
             <div class="booking">
                 예약하실 날짜와 영화, 좌석을 선택해주세요
             </div>
-            <div style="height: 10px; margin-left: 170px; margin-top: 10px;">
+            <div class="cal">
                 <select class="select1" class="form-control input-sm" id="year" name="year">
                 </select>
                 <select class="select1" class="form-control input-sm" id="month" name="month">
