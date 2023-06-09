@@ -170,8 +170,8 @@
         .book-box {
             background-color: white;
             border: solid 1px black;
-            width: 80vw;
-            left: 10vw;
+            width: 1500px;
+            left: 500px;
             top: 10vh;
             margin: auto;
             position: absolute;
@@ -316,7 +316,7 @@
             background-color: black;
             min-width: 240px;
             border-radius: 8px;
-            height: 160px;
+            height: 500px;
             overflow: scroll;
             /* box-shadow: 0px 0px 10px 3px rgba(190, 190, 190, 0.6); */
         }
@@ -345,6 +345,18 @@
 
         .dropdown-content.show {
             display: block;
+        }
+
+        .reservation-check {
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            background-color: white;
+            width: 130px;
+            height: 50px;
+            margin-top: 400px;
+            margin-left: 1700px;
+
         }
 
         /* ------------- 정보페이지 스타일 ------------- */
@@ -572,20 +584,23 @@
         function save_book(arr) {
             let seat = arr;
 
-            let formData = new FormData();
-            formData.append("seat_give", seat);
 
-            var year = $('#year').val()
+
+            var bookedyear = $('#year').val()
             var month = $('#month').val();
             var date = $('#date').val();
-            var name = $('#movie').val();
+            var name = $('#movie-title').val();
 
-            formData.append("year_give", year);
-            formData.append("month_give", month);
-            formData.append("date_give", date);
-            formData.append("name_give", name)
+            let formData = new FormData();
+            formData.append("seat_give", seat);
+            formData.append('year_give', bookedyear);
+            formData.append('month_give', month);
+            formData.append('date_give', date);
+            formData.append('name_give', name)
 
-            fetch('/book', { method: "POST", body: formData }).then((response) => response.json()).then((data) => { });
+            fetch('/book', { method: "POST", body: formData }).then((response) => response.json()).then((data) => {
+                console.log(data);
+            });
         }
 
         /*----------------- 드롭다운버튼 ----------------- */
@@ -711,7 +726,7 @@
                     </button>
                     <div class="dropdown-content">
                         <div class="reservation-movie" onclick="showMenu(this.innerText)""></div>
-                        <button type="button" class="btn btn-secondary" onclick="modalOn()">임시 예매 버튼</button>
+                        <button type="button" class="reservation-check" onclick="modalOn()">임시 예매 버튼</button>
                     </div>
                     
                 </div>

@@ -50,24 +50,24 @@ def movie_post():
 
     return jsonify({'msg': 'POST 연결 완료!'})
 
-@app.route("/book", methods=["POST"])
-def book_get():
-    seat_receive = request.form['seat_give']
-    year_receive = request.form['year_give']
-    month_receive = request.form['month_give']
-    date_receive = request.form['date_give']
-    name_receive = request.form['name_give']
+# @app.route("/book", methods=["POST"])
+# def book_get():
+#     seat_receive = request.form['seat_give']
+#     year_receive = request.form['year_give']
+#     month_receive = request.form['month_give']
+#     date_receive = request.form['date_give']
+#     name_receive = request.form['name_give']
     
-    doc = {
-        'seat': seat_receive,
-        'year': year_receive,
-        'month': month_receive,
-        'date': date_receive,
-        'name': name_receive
-    }
-    db.booked.insert_one(doc)
+#     doc = {
+#         'seat': seat_receive,
+#         'year': year_receive,
+#         'month': month_receive,
+#         'date': date_receive,
+#         'name': name_receive
+#     }
+#     db.booked.insert_one(doc)
 
-    return jsonify({'msg': '예약 저장 완료!'})
+    # return jsonify({'msg': '예약 저장 완료!'})
 
 @app.route("/movie", methods=["GET"])
 def movie_get():
