@@ -23,7 +23,7 @@ def movie_post():
     lis = soup.select("#mainContent > div > div.box_ranking > ol > li")
     comment_content = soup.select("#mainContent > div > div.box_ranking > ol > li > div > div.thumb_item div.poster_info a")
 
-    # 기존 데이터 삭제
+    ## 기존 데이터 삭제
     db.movie.delete_many({})
 
     for li, comm in zip(lis, comment_content):

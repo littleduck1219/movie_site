@@ -252,6 +252,27 @@
             font-size: 18px;
         }
 
+        .select1 {
+            height: 50px;
+            width: 200px;
+            border: 1px sollid #c4c4c4;
+            box-sizing: border-box;
+            border-radius: 10px;
+            padding: 12px 13px;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 16px;
+            text-align: right;
+            margin: auto;
+        }
+
+        .booking{
+            font-size: 30px;
+            text-align: center;
+        }
+        
+
         /* -----------------드롭다운 버튼-----------------  */
         .menu-icon_up {
             border-top: 3px solid white;
@@ -300,7 +321,7 @@
             height: 600px;
         }
 
-        .info-box .btn-outline-dark{
+        .info-box .btn-outline-dark {
             margin-top: 15px;
             margin-right: 15px;
             width: 30px;
@@ -353,7 +374,7 @@
             display: -webkit-box;
             -webkit-line-clamp: 11;
             -webkit-box-orient: vertical;
-            }
+        }
 
         .info-box .btn-outline-warning {
             position: relative;
@@ -514,6 +535,16 @@
             let formData = new FormData();
             formData.append("seat_give", seat);
 
+            var year = $('#year').val()
+            var month = $('#month').val();
+            var date = $('#date').val();
+            var name = $('#movie').val();
+
+            formData.append("year_give", year);
+            formData.append("month_give", month);
+            formData.append("date_give", date);
+            formData.append("name_give", name)
+
             fetch('/book', { method: "POST", body: formData }).then((response) => response.json()).then((data) => { });
         }
         console.clear();
@@ -544,6 +575,43 @@
 
             init();
         })();
+
+        function movie_doc() {
+            fetch('/movie').then(res => res.json()).then(data => {
+                let rows = data['result']
+                rows.forEach((a, index) => {
+                    let title = a['title']
+                    let temp_movie = `<option value=${title}> ${title} </option>`
+                    $("#movie").append(temp_movie)
+                })
+            })
+        }
+
+        function movie_date() {
+            var now = new Date()
+            var now_year = now.getFullYear()
+            var now_month = now.getMonth()
+            var all_date = new Date(now_year, now_month + 1, 0)
+            last_date = all_date.getDate()
+
+            $("#year").append("<option value=''>년도</option>");
+            for (var y = now_year; y <= (now_year + 10); y++) {
+                $("#year").append("<option value='" + y + "'>" + y + " 년" + "</option>");
+            }
+
+            $("#month").append("<option value=''>월</option>");
+            for (var m = 1; m <= 12; m++) {
+                if (String(m).length == '1') {
+                    $("#month").append("<option value='" + "0" + m + "'>" + "0" + m + "월" + "</option>");
+                } else {
+                    $("#month").append("<option value='" + m + "'>" + m + "월" + "</option>");
+                }
+            } document.getElementById
+            $("#date").append("<option value=''>일</option>");
+            for (var d = 1; d <= last_date; d++) {
+                $("#date").append("<option value='" + d + "'>" + d + " 일" + "</option>");
+            }
+        }
 
     </script>
 </head>
@@ -614,6 +682,19 @@
         <div class="select">
         </div>
         <div class="body">
+            <div class="booking">
+                예약하실 날짜와 영화, 좌석을 선택해주세요
+            </div>
+            <div style="height: 10px; margin-left: 170px; margin-top: 10px;">
+                <select class="select1" class="form-control input-sm" id="year" name="year">
+                </select>
+                <select class="select1" class="form-control input-sm" id="month" name="month">
+                </select>
+                <select class="select1" class="form-control input-sm" id="date" name="date">
+                </select>
+                <select class="select1" class="form-control input-sm" id="movie" name="movie">
+                </select>
+            </div>
             <div class="seat">
                 <div id="seat_check" class="check">
                     <input type="checkbox" class="btn-check" id="A1" value="A1" onclick="click_seat()">
