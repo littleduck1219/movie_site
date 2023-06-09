@@ -167,7 +167,6 @@
         }
 
         /* -----------------예매 페이지 스타일-----------------  */
-
         .book-box {
             background-color: white;
             border: solid 1px black;
@@ -285,7 +284,6 @@
             margin-left: 320px;
             margin-top: 10px;
         }
-
 
         /* -----------------드롭다운 버튼-----------------  */
         .dropdown-label {
@@ -476,7 +474,6 @@
             })
         }
         /* ----------------- 정보 페이지 스크립트 -----------------*/
-
         function info_get(title) {
             fetch('/movie').then(res => res.json()).then(data => {
                 let rows = data['result']
@@ -513,7 +510,6 @@
         }
 
         /*----------------- 예매 페이지 스크립트 ----------------- */
-
         function modalOn() {
             info_box = $('#info-box')
             info_box.css("display", 'none')
@@ -628,37 +624,6 @@
                 dropbtn.style.borderColor = '#3992a8';
             }
         }
-        /*----------------- 예매 확인 ----------------- */
-        function listing() {
-            fetch('/book').then(res => res.json()).then(data => {
-                let rows = data['result']
-                rows.forEach((a, index) => {
-                    let seat = a['seat']
-                    let year = a['year']
-                    let month = a['month']
-                    let date = a['date']
-                    let url = a['url']
-                    let ranked_temp_html = `<div class="ranked-movie" onclick="info_get('${title}')">
-                                    <img class="ranked-movie-poster" src=${poster} />
-                                    <div class="ranked-movie-name"><a href="#">${title}</a></div>
-                                    <div class="ranked-movie-rate">예매율: ${rate}</div>
-                                </div>`
-
-                    let temp_html = `<div class="movie" id="movie" onclick="info_get('${title}')">
-                                        <img class="movie-poster" src=${poster} />
-                                        <div class="movie-name"><a href="#">${title}</a></div>
-                                        <div class="movie-rate">예매율: ${rate}</div>
-                                    </div>`
-
-                    if (index < 5) {
-                        $('.ranked-movie-container').append(ranked_temp_html)
-                    } else {
-                        $('.movie-container').append(temp_html)
-                    }
-                })
-            })
-        }
-
 
         window.onclick = (e) => {
             if (!e.target.matches('.dropbtn_click')) {
@@ -678,8 +643,23 @@
                 }
             }
         }
-        
-                /*----------------- 예매 페이지 ----------------- */
+
+        /*----------------- 예매 확인 ----------------- */
+        function reservation_check() {
+            fetch('/book').then(res => res.json()).then(data => {
+                let rows = data['result']
+                rows.forEach((a, index) => {
+                    let seat = a['seat']
+                    let year = a['year']
+                    let month = a['month']
+                    let date = a['date']
+                    let url = a['url']
+
+                })
+            })
+        }
+
+        /*----------------- 예매 페이지 ----------------- */
         function movie_doc() {
             fetch('/movie').then(res => res.json()).then(data => {
                 let rows = data['result']
@@ -758,7 +738,7 @@
                         <div class="ranked-movie-rate"></div>
                     </div>
                 </div>
-            </header>
+        </header>
     </div>
     <main>
         <div class="movie-list">
