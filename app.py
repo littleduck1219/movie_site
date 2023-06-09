@@ -45,7 +45,6 @@ def movie_post():
                 'content': summary_content
             }
 
-            print(doc)
             db.movie.insert_one(doc)
             
 
