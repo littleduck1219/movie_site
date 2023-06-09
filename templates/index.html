@@ -271,6 +271,12 @@
             font-size: 30px;
             text-align: center;
         }
+
+        .cal{
+            height: 10px; 
+            margin-left: 320px; 
+            margin-top: 10px;
+        }
         
 
         /* -----------------드롭다운 버튼-----------------  */
@@ -481,6 +487,8 @@
                 });
                 box.append('<br>');
             });
+            movie_date()
+            movie_doc()
         }
         function modal() {
             document.getElementsByClassName("btn-check").checked = false;
@@ -613,6 +621,10 @@
             }
         }
 
+        function movie_sum(){
+
+        }
+
     </script>
 </head>
 
@@ -631,7 +643,7 @@
                     </div>
 
                     <ul class="menubars">
-                        <li>메뉴</li>
+                        <li><button type="button" class="btn btn-outline-light" onclick="movie_sum()">메뉴</button></li>
                         <li>메뉴</li>
                         <li>메뉴</li>
                         <li>메뉴</li>
@@ -685,7 +697,7 @@
             <div class="booking">
                 예약하실 날짜와 영화, 좌석을 선택해주세요
             </div>
-            <div style="height: 10px; margin-left: 170px; margin-top: 10px;">
+            <div class="cal">
                 <select class="select1" class="form-control input-sm" id="year" name="year">
                 </select>
                 <select class="select1" class="form-control input-sm" id="month" name="month">
